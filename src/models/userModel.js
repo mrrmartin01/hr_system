@@ -1,32 +1,34 @@
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-    firstname: {
+    firstName: {
       type: String,
-      required: [true, "Must provide a first name"],
-      min: 3,
+      required: [true, "First name is required"],
+      trim: true,
     },
-    lastname: {
+    lastName: {
       type: String,
-      required: [true, "Must provide a last name"],
-      min: 3,
+      required: [true, "Last name is required"],
+      trim: true,
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is required"],
       unique: true,
-      index: true,
+      lowercase: true,
+      trim: true,
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Password is required"],
     },
-    image: {
+    role: {
       type: String,
+      enum: ["admin", "employer", "employee"],
+      default: "employee",
     },
-    isAdmin: {
+    isVerified: {
       type: Boolean,
       default: false,
     },
@@ -34,14 +36,4 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Password hashing middleware
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) return next();
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-//   next();
-// });
-
-const User = mongoose.models.User || mongoose.model("User", userSchema);
-
-export { User };
+export const User = mongoose.models?.User || mongoose.model("User", userSchema);

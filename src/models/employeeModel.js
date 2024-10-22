@@ -2,46 +2,35 @@ import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
-    lastName: {
-      type: String,
-      required: true,
-    },
-    employeeId: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    department: {
-      type: String,
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
       required: true,
     },
     position: {
       type: String,
-      required: true,
+      required: [true, "Position is required"],
     },
-    email: {
+    department: {
       type: String,
-      required: true,
-      unique: true,
-    },
-    phoneNumber: {
-      type: String,
+      required: [true, "Department is required"],
     },
     hireDate: {
       type: Date,
-      required: true,
+      default: Date.now,
     },
     salary: {
       type: Number,
-      required: true,
+      required: [true, "Salary is required"],
     },
-    managerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Employee',
+    isVerified: {
+      type: Boolean,
+      default: false,
     },
   },
   { timestamps: true }
