@@ -39,13 +39,13 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               className="text-sm hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
-              href="/login"
+              href="/auth/signin"
             >
               Login
             </Link>
             <Link
               className="text-sm border dark:border-neutral-800 bg-slate-50 dark:bg-neutral-950 hover:bg-slate-200 dark:hover:bg-neutral-800 px-3 py-1 rounded-md transition-colors duration-300"
-              href="/register"
+              href="/auth/signup"
             >
               Register
             </Link>

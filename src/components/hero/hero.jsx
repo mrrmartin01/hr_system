@@ -6,7 +6,7 @@ import Partners from "./partners/partners";
 
 const Hero = () => {
   return (
-    <div className="h-[40rem] w-full flex flex-col md:items-center md:pt-[12%] antialiased relative overflow-hidden">
+    <div className="w-full flex flex-col md:items-center md:pt-[12%] antialiased relative overflow-hidden">
       <Spotlight
         className="-top-40 left-0 md:left-20 md:-top-20"
         fill="var(--spotlight-color)"
@@ -21,18 +21,15 @@ const Hero = () => {
           and more.
         </h2>
         <p className="text-xs md:text-sm font-sans mb-[3%]">
-          HR wasn&apos;t meant to be a pain in the neck, so why should it be
-          now?
+          HR wasn&apos;t meant to be a pain in the neck, <span className="text-green-400">so why should it be
+          now?</span>
         </p>
-        <Button
-          variant="outline"
-          className="text-sm md:text-base w-fit m-auto"
-        >
-          <Link href="/login">Get Started</Link>
+        <Button variant="outline" className="text-sm md:text-base w-fit m-auto">
+          <Link href="/auth/login">Get Started</Link>
         </Button>
-        <div className="mt-[5%]">
-          <Partners />
-        </div>
+      </div>
+      <div className="w-full mt-[5%]">
+        <Partners />
       </div>
     </div>
   );
