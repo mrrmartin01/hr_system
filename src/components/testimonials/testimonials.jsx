@@ -46,12 +46,7 @@ const reviews = [
 const firstRow = reviews.slice(0, reviews.length / 2);
 const secondRow = reviews.slice(reviews.length / 2);
 
-const ReviewCard = ({
-  img,
-  name,
-  username,
-  body,
-}) => {
+const ReviewCard = ({ img, name, username, body }) => {
   return (
     <figure
       className={cn(
@@ -59,7 +54,7 @@ const ReviewCard = ({
         // light styles
         "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
         // dark styles
-        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+        "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]"
       )}
     >
       <div className="flex flex-row items-center gap-2">
@@ -81,11 +76,11 @@ export function Testimonials() {
     <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg  bg-background md:shadow-xl">
       <motion.h1
         initial={{ opacity: 0, x: -100 }}
-        whileInView={{ opacity: 1, x: 0 ,}}
+        whileInView={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-xl font-sans font-bold md:text-5xl font-bold bg-gradient-to-tr dark:from-neutral-50 from-neutral-900 to-neutral-400 dark:to-neutral-900 bg-opacity-50 text-transparent bg-clip-text mb-10"
+        className="text-xl font-sans md:text-5xl font-bold bg-gradient-to-tr dark:from-neutral-50 from-neutral-900 to-neutral-400 dark:to-neutral-900 bg-opacity-50 text-transparent bg-clip-text mb-10"
       >
-       Client Testimonials
+        Client Testimonials
       </motion.h1>
       <MagicMarquee pauseOnHover className="[--duration:30s]">
         {firstRow.map((review) => (

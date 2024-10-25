@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   try {
-    const { firstname, lastname, email, password } = await req.json();
+    const { firstName, lastName, email, password } = await req.json();
 
     await clientPromise;
 
@@ -20,8 +20,8 @@ export async function POST(req) {
 
     // Create new user
     const newUser = new User({
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     });

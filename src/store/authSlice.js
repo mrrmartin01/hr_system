@@ -1,71 +1,71 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { signIn, signOut } from 'next-auth/react';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { signIn } from "next-auth/react";
 
 export const signupUser = createAsyncThunk(
-  'auth/signup',
-  async ({ firstname, lastname, email, password }, { rejectWithValue }) => {
+  "auth/signup",
+  async ({ firstName, lastName, email, password }, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ firstname, lastname, email, password }),
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ firstName, lastName, email, password }),
       });
       const data = await response.json();
-      if (response.ok) {
-        await signIn('credentials', { email, password, redirect: false });
-        return data;
+      if (!response.ok) {
+        return rejectWithValue(data.message);
       }
-      return rejectWithValue(data);
+      // Automatically sign in the user after successful signup
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+      if (result.error) {
+        return rejectWithValue(result.error);
+      }
+      return data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      return rejectWithValue(error.message);
     }
   }
 );
 
 export const signinUser = createAsyncThunk(
-  'auth/signin',
+  "auth/signin",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const result = await signIn('credentials', { email, password, redirect: false });
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
       if (result.error) {
-        return rejectWithValue({ message: result.error });
+        return rejectWithValue(result.error);
       }
       return { success: true };
     } catch (error) {
-      return rejectWithValue({ message: 'An error occurred during sign in' });
+      return rejectWithValue(error.message);
     }
   }
 );
-
-export const signoutUser = createAsyncThunk(
-  'auth/signout',
-  async (_, { rejectWithValue }) => {
-    try {
-      await signOut({ redirect: false });
-      return { success: true };
-    } catch (error) {
-      return rejectWithValue({ message: 'An error occurred during sign out' });
-    }
-  }
-);
-
-const initialState = {
-  user: null,
-  isAuthenticated: false,
-  loading: false,
-  error: null,
-};
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState,
+  name: "auth",
+  initialState: {
+    user: null,
+    loading: false,
+    error: null,
+    isAuthenticated: false,
+  },
   reducers: {
+    clearAuthError: (state) => {
+      state.error = null;
+    },
     setUser: (state, action) => {
       state.user = action.payload;
       state.isAuthenticated = !!action.payload;
-    },
-    clearError: (state) => {
-      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -74,13 +74,14 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(signupUser.fulfilled, (state) => {
+      .addCase(signupUser.fulfilled, (state, action) => {
         state.loading = false;
         state.isAuthenticated = true;
+        state.user = action.payload.user;
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
+        state.error = action.payload;
       })
       .addCase(signinUser.pending, (state) => {
         state.loading = true;
@@ -92,14 +93,10 @@ const authSlice = createSlice({
       })
       .addCase(signinUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload.message;
-      })
-      .addCase(signoutUser.fulfilled, (state) => {
-        state.user = null;
-        state.isAuthenticated = false;
+        state.error = action.payload;
       });
   },
 });
 
-export const { setUser, clearError } = authSlice.actions;
-export default authSlice.reducer;
+export const { clearAuthError, setUser } = authSlice.actions;
+export default authSlice.reducer; 

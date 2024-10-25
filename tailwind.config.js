@@ -18,9 +18,23 @@ module.exports = {
   		boxShadow: {
   			input: '`0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`'
   		},
+  		backgroundImage: {
+  			'gradient-radial': 'radial-gradient(circle, var(--tw-gradient-stops))',
+  			'gradient-conic': 'conic-gradient(from 90deg at 50% 50%, var(--tw-gradient-stops))'
+  		},
   		colors: {
   			background: 'var(--background)',
-  			foreground: 'var(--foreground)'
+  			foreground: 'var(--foreground)',
+  			sidebar: {
+  				DEFAULT: 'hsl(var(--sidebar-background))',
+  				foreground: 'hsl(var(--sidebar-foreground))',
+  				primary: 'hsl(var(--sidebar-primary))',
+  				'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+  				accent: 'hsl(var(--sidebar-accent))',
+  				'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+  				border: 'hsl(var(--sidebar-border))',
+  				ring: 'hsl(var(--sidebar-ring))'
+  			}
   		},
   		fontFamily: {
   			sans: ["var(--font-geist-sans)", "sans-serif"],
@@ -34,7 +48,6 @@ module.exports = {
   		animation: {
   			spotlight: 'spotlight 2s ease .75s 1 forwards',
   			marquee: 'marquee var(--duration) infinite linear',
-  			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
   			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
   		},
   		keyframes: {

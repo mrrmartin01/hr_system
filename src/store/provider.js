@@ -1,13 +1,21 @@
-"use client"
+'use client'
 
-import { Provider } from "react-redux"
 import { SessionProvider } from "next-auth/react"
-import { store } from "./store"
+import { Provider as ReduxProvider } from "react-redux"
+import { configureStore } from "@reduxjs/toolkit"
+import authReducer from "@/store/authSlice"
 
-export default function CustomProvider({ children, session }) {
+export default function Provider({ children, initialState = {} }) {
+  const store = configureStore({
+    reducer: {
+      auth: authReducer,
+    },
+    preloadedState: initialState,
+  })
+
   return (
-    <Provider store={store}>
-      <SessionProvider session={session}>{children}</SessionProvider>
-    </Provider>
+    <ReduxProvider store={store}>
+      <SessionProvider>{children}</SessionProvider>
+    </ReduxProvider>
   )
 }
