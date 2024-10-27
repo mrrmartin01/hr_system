@@ -25,7 +25,7 @@ const Hero = () => {
           now?</span>
         </p>
         <Button variant="outline" className="text-sm md:text-base w-fit m-auto">
-          <Link href="/auth/login">Get Started</Link>
+          <Link href="/auth/signin">Get Started</Link>
         </Button>
       </div>
       <div className="w-full mt-[5%]">

@@ -1,9 +1,8 @@
-import Layout from "./layout";
+import Hero from "@/components/hero/hero";
 
-export default function Home() {
+
+export default function Page() {
   return (
-    <Layout>
-      <h1 className="text-3xl font-bold">Welcome to HR System</h1>
-    </Layout>
-  )
+   <Hero/>
+  );
 }

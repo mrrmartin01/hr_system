@@ -47,7 +47,7 @@ export default async function RootLayout({ children }) {
         >
           <CustomProvider session={session}>
             <SessionSync />
-            <Header />
+            {/* <Header /> */}
             <div className="h-16" />
             <main className="overflow-x-hidden">{children}</main>
           </CustomProvider>
