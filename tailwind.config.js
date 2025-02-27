@@ -37,8 +37,14 @@ module.exports = {
   			}
   		},
   		fontFamily: {
-  			sans: ["var(--font-geist-sans)", "sans-serif"],
-  			mono: ["var(--font-geist-mono)", "monospace"]
+  			sans: [
+  				'var(--font-geist-sans)',
+  				'sans-serif'
+  			],
+  			mono: [
+  				'var(--font-geist-mono)',
+  				'monospace'
+  			]
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

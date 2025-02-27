@@ -1,11 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import CustomProvider from "@/store/provider";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/lib/auth";
-import SessionSync from "@/store/sessionsync";
 import { ThemeProvider } from "@/context/theme/theme-provider";
-import Header from "@/components/header/header";
+import { AuthProvider } from "./api/auth/sessionProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,20 +15,17 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "OptiCare",
+  title: "Warlock HRMS",
   description:
-    "The homepage of the OptiCare HRMS. A comprehensive solution for managing employees, payroll, performance and more.",
+    "The homepage of the Warlock HRMS. A comprehensive solution for managing employees, payroll, performance and more.",
   icons: {
     icon: "/logo.png",
   },
   keywords:
-    "OptiCare, HRMS, Human Resource Management System, payroll, performance, employee management",
-  
+    "Warlock, HRMS, Human Resource Management System, payroll, performance, employee management",
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession(authOptions);
-
   return (
     <html lang="en" suppressHydrationWarning={true}>
       <body
@@ -45,12 +38,7 @@ export default async function RootLayout({ children }) {
           enableSystem
           disableTransitionOnChange
         >
-          <CustomProvider session={session}>
-            <SessionSync />
-            <Header />
-            <div className="h-16" />
-            <main className="overflow-x-hidden">{children}</main>
-          </CustomProvider>
+          <AuthProvider>{children}</AuthProvider>
         </ThemeProvider>
       </body>
     </html>

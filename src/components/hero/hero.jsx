@@ -1,7 +1,7 @@
 import React from "react";
 import { Spotlight } from "@/components/ui/spotlight/spotlight";
 import Link from "next/link";
-import { Button } from "../ui/buttom/button";
+import { Button } from "../ui/button";
 import Partners from "./partners/partners";
 
 const Hero = () => {

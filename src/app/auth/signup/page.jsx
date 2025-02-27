@@ -4,13 +4,13 @@ import React from "react";
 
 const Signup = () => {
   return (
-    <div className="flex items-center justify-center min-h-[89vh] dark:bg-black bg-white font-mono relative overflow-hidden">
+    <div className="flex items-center justify-center min-h-[100vh] dark:bg-black bg-white font-mono relative overflow-hidden">
       {/* Subtle futuristic background gradient */}
       <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-200 via-white to-gray-300 dark:from-gray-900 dark:via-black dark:to-gray-800 opacity-90"></div>
 
       {/* Main login form container with minimalistic design */}
       <div
-        className="relative z-10 max-w-md w-full mx-auto rounded-xl px-8 py-2
+        className="relative z-10 max-w-md w-full mx-auto md:rounded-xl px-8 py-2
        bg-gradient-to-br from-slate-300 to-gray-400 dark:from-gray-900 dark:to-black  border border-slate-400 dark:border-gray-700 backdrop-blur-lg"
       >
         <h2 className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b from-black/80 to-black/10 dark:from-white/80 dark:to-white/10 font-sans text-3xl tracking-wide leading-tighter">

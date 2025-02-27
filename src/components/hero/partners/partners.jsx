@@ -10,13 +10,13 @@ export default function Partners() {
     { url: "delta-plus.png", name: "Delta Plus" },
     { url: "google.png", name: "Google" },
     { url: "hp.png", name: "HP" },
-    { url: "nvidea.png", name: "NVIDIA" },
+    { url: "nvidia.png", name: "NVIDIA" },
     { url: "samsung.png", name: "Samsung" },
     { url: "shell.png", name: "Shell" },
   ];
 
   return (
-    <div className="w-full bg-gradient-to-r from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 py-4">
+    <div className="w-full bg-gradient-to-r  dark:bg-gradient-to-r from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800 py-4">
       <div className="container m-auto">
         <div className="flex justify-between items-center gap-8">
           {partners.map((item, index) => (

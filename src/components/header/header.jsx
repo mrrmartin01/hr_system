@@ -6,16 +6,18 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { motion } from "framer-motion";
 import ThemeToggle from "@/context/theme/theme-toggle";
+import { useSession } from "next-auth/react";
+import { Button } from "../ui/button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { data: session } = useSession();
+  // const session =false
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="max-w-full">
-        <div
-          className="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16 bg-slate-100 dark:bg-black bg-opacity-80 dark:bg-opacity-60 backdrop-blur-sm"
-        >
+        <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16 bg-slate-300 dark:bg-black bg-opacity-50 dark:bg-opacity-60 backdrop-blur-sm">
           <Link
             className="text-xl font-mono md:text-2xl font-bold hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
             href="/"
@@ -37,18 +39,33 @@ const Header = () => {
 
           {/* Auth Links */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link
-              className="text-sm hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
-              href="/auth/signin"
-            >
-              Login
-            </Link>
-            <Link
-              className="text-sm border dark:border-neutral-800 bg-slate-50 dark:bg-neutral-950 hover:bg-slate-200 dark:hover:bg-neutral-800 px-3 py-1 rounded-md transition-colors duration-300"
-              href="/auth/signup"
-            >
-              Register
-            </Link>
+            {session ? (
+              <Button asChild variant="outline">
+                <Link
+                  className="text-sm hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
+                  href="/dashboard"
+                >
+                  Dashboard
+                </Link>
+              </Button>
+            ) : (
+              <>
+                <Link
+                  className="text-sm hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
+                  href="/auth/signin"
+                >
+                  Login
+                </Link>
+                <Button asChild variant="outline">
+                  <Link
+                    className="text-sm border dark:border-neutral-800 bg-slate-50 dark:bg-neutral-950 hover:bg-slate-200 dark:hover:bg-neutral-800 px-3 py-1 rounded-md transition-colors duration-300"
+                    href="/auth/signup"
+                  >
+                    Register
+                  </Link>
+                </Button>
+              </>
+            )}
             <ThemeToggle />
           </div>
 
@@ -56,7 +73,7 @@ const Header = () => {
           <Menu
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-          ></Menu>
+          />
         </div>
       </div>
 
@@ -79,18 +96,22 @@ const Header = () => {
                   {item.title}
                 </Link>
               ))}
-              <Link
-                className="block px-3 py-2 text-base font-medium hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
-                href="/login"
-              >
-                Login
-              </Link>
-              <Link
-                className="block px-3 py-2 text-base font-medium bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-colors duration-300"
-                href="/register"
-              >
-                Register
-              </Link>
+              {!session && (
+                <>
+                  <Link
+                    className="block px-3 py-2 text-base font-medium hover:text-neutral-600 dark:hover:text-neutral-400 transition-colors duration-300"
+                    href="/auth/signin"
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    className="block px-3 py-2 text-base font-medium bg-blue-500 hover:bg-blue-600 text-white rounded-md transition-colors duration-300"
+                    href="/auth/signup"
+                  >
+                    Register
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </motion.div>
